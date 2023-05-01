@@ -1,0 +1,25 @@
+{
+    "name": "Youtube Playlist",
+    "version": "0.0.1",
+    "description": "Youtube extension",
+    "permissions": [
+        "tabs"
+    ],
+    "host_permissions": [
+        "https://www.youtube.com/watch*"
+    ],
+    "content_scripts": [
+        {
+            "matches": [
+                "https://www.youtube.com/watch*"
+            ],
+            "js": [
+                "scripts/content.js"
+            ]
+        }
+    ],
+    "action": {
+        "default_popup": "hello.html"
+    },
+    "manifest_version": 3
+}
