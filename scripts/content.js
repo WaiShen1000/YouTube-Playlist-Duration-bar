@@ -71,16 +71,20 @@ function calculateTotalTime(timeList) {
 }
 
 function insert(totalTime) {
+
+    
     let span = document.createElement('h1');
     span.className = 'totalTime';
     span.id = 'totalTime';
-    span.textContent = "Playlist total : " + totalTime;
+    span.textContent = "Playlist time : " + totalTime;
     span.style.color = 'white';
+    span.style.textAlign = 'center';
 
     // let div = document.querySelectorAll("#publisher-container > div > yt-formatted-string")
     // let pending = document.querySelectorAll("#publisher-container > div > span")
-    let right = document.querySelectorAll("#secondary");
+    let right = document.querySelectorAll("#container");
     let below = document.querySelectorAll("#below");
+    let playlist = document.querySelectorAll("#playlist")
 
     const totalTimeSpan = document.getElementById("totalTime");
     if (totalTimeSpan != null)
@@ -91,12 +95,15 @@ function insert(totalTime) {
     
     // for (const s of pending)
     //     s.appendChild(span);
+
+    for (const p of playlist)
+        p.insertBefore(span, p.childNodes[0]);
     
-    for (const w of right)
-        w.insertBefore(span, w.childNodes[0]);
+    // for (const w of right)
+    //     w.insertBefore(span, w.childNodes[0]);
     
-    for (const b of below)
-        b.insertBefore(span, b.childNodes[0]);
+    // for (const b of below)
+    //     b.insertBefore(span, b.childNodes[0]);
 }
 
 
