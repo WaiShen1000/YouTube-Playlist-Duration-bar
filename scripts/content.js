@@ -7,7 +7,6 @@ const sleep = (ms) =>
 function getVideos() {
     items = document.querySelectorAll('div#items[class="playlist-items style-scope ytd-playlist-panel-renderer"]');
 
-    retryCount++;
     console.log("Trying : "+ retryCount);
 
     return items[1]
@@ -15,39 +14,114 @@ function getVideos() {
 
 
 function getVideoTime(video) {
-    console.log(video);
+    // console.log(video);
     let videoTimeElement = video.querySelector("#text");
     if (videoTimeElement == null) {
-        console.log("videoTimeElement is null");
+        // console.log("videoTimeElement is null");
         return ("00:00");
     }
     else {
-        return(videoTimeElement.innerText.trim());
+        return (videoTimeElement.innerText.trim());
     }
 }
 
 function getTotalTime(videos) {
-    let allTimes = [];
+    let timeList = [];
 
     // a for loop to loop through the videos list and pass to getVideoTime, then store each result in allTimes as list of string
     for (let i = 0; i < videos.length; i++) {
-        allTimes[i] = getVideoTime(videos[i]);
+        timeList[i] = getVideoTime(videos[i]);
     }
 
-    console.log(allTimes);
+    return timeList;
+}
+
+// function to calculate the total time of timeList
+// allTimes = ["1:09:10", "6:09", "00:21" ...]
+function calculateTotalTime(timeList) {
+    let totalSeconds = 0;
+    let hours = 0;
+    let minutes = 0;
+    let seconds = 0;
+
+    for (let i = 0; i < timeList.length; i++) {
+        let time = timeList[i].split(":");
+
+        if (time.length == 3) {
+            hours = parseInt(time[0]);
+            minutes = parseInt(time[1]);
+            seconds = parseInt(time[2]);
+        } else if (time.length == 2) {
+            hours = 0;
+            minutes = parseInt(time[0]);
+            seconds = parseInt(time[1]);
+        }
+
+        totalSeconds += seconds;
+        totalSeconds += minutes * 60;
+        totalSeconds += hours * 60 * 60;
+    }
+
+    let totalHours = Math.floor(totalSeconds / 3600);
+    let totalMinutes = Math.floor((totalSeconds - totalHours * 3600) / 60);
+    let totalSecondsLeft = totalSeconds - totalHours * 3600 - totalMinutes * 60;
+
+    let zeroPad = (val) => val < 10 ? "0" + val : val;
+    return (totalHours + ":" + zeroPad(totalMinutes) + ":" + zeroPad(totalSecondsLeft));
+}
+
+function insert(totalTime) {
+    let span = document.createElement('h1');
+    span.className = 'totalTime';
+    span.id = 'totalTime';
+    span.textContent = "Playlist total : " + totalTime;
+    span.style.color = 'white';
+
+    // let div = document.querySelectorAll("#publisher-container > div > yt-formatted-string")
+    // let pending = document.querySelectorAll("#publisher-container > div > span")
+    let right = document.querySelectorAll("#secondary");
+    let below = document.querySelectorAll("#below");
+
+    const totalTimeSpan = document.getElementById("totalTime");
+    if (totalTimeSpan != null)
+        totalTimeSpan.remove();
+
+    // for (const d of div)
+    //     d.appendChild(span);
+    
+    // for (const s of pending)
+    //     s.appendChild(span);
+    
+    for (const w of right)
+        w.insertBefore(span, w.childNodes[0]);
+    
+    for (const b of below)
+        b.insertBefore(span, b.childNodes[0]);
 }
 
 
-const main = async () => {
+
+function main() {
     let videos = undefined;
+    retryCount++;
+    videos = getVideos();
 
-    while (videos == undefined && retryCount < 10) {
-        videos = getVideos();
-        await sleep(1000);
+    if (videos == undefined && videos.length == 0) {
+        console.log("List not found");
+        return;
     }
-    videos = videos.children;
 
-    getTotalTime(videos);
+    videos = videos.children;
+    console.log(videos);
+
+    let timeList = getTotalTime(videos);
+    console.log(timeList);
+
+    let totalTime = calculateTotalTime(timeList);
+    console.log(totalTime);
+
+    insert(totalTime);
 }
-main();
-setInterval(main, 15000);
+
+setInterval(main, 5000);
+
