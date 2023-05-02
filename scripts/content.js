@@ -14,13 +14,19 @@ function getVideos() {
 }
 
 
-async function getVideoTime(video) {
+function getVideoTime(video) {
     console.log(video);
-    let videoTime = video.querySelector("#text").textContent;
-    return(videoTime);
+    let videoTimeElement = video.querySelector("#text");
+    if (videoTimeElement == null) {
+        console.log("videoTimeElement is null");
+        return ("00:00");
+    }
+    else {
+        return(videoTimeElement.innerText.trim());
+    }
 }
 
-async function getTotalTime(videos) {
+function getTotalTime(videos) {
     let allTimes = [];
 
     // a for loop to loop through the videos list and pass to getVideoTime, then store each result in allTimes as list of string
@@ -28,12 +34,12 @@ async function getTotalTime(videos) {
         allTimes[i] = getVideoTime(videos[i]);
     }
 
-    console.log(typeof allTimes[0]);
+    console.log(allTimes);
 }
 
 
 const main = async () => {
-    let videos;
+    let videos = undefined;
 
     while (videos == undefined && retryCount < 10) {
         videos = getVideos();

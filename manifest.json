@@ -6,12 +6,12 @@
         "tabs"
     ],
     "host_permissions": [
-        "https://www.youtube.com/watch*"
+        "https://www.youtube.com/*"
     ],
     "content_scripts": [
         {
             "matches": [
-                "https://www.youtube.com/watch*"
+                "https://www.youtube.com/*"
             ],
             "js": [
                 "scripts/content.js"
