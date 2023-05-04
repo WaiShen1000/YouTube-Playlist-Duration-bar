@@ -2,6 +2,7 @@
     "name": "Youtube Playlist",
     "version": "0.1.1",
     "description": "Youtube extension",
+    "manifest_version": 3,
     "permissions": [
         "tabs"
     ],
@@ -18,8 +19,17 @@
             ]
         }
     ],
+    "web_accessible_resources": [
+        {
+            "matches": [
+                "https://www.youtube.com/*"
+            ],
+            "resources": [
+                "scripts/duration_header.js"
+            ]
+        }
+    ],
     "action": {
         "default_popup": "hello.html"
-    },
-    "manifest_version": 3
+    }
 }

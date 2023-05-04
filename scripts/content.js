@@ -1,13 +1,5 @@
-let retryCount = 0;
-
-const sleep = (ms) =>
-  new Promise(resolve => setTimeout(resolve, ms))
-
-
 function getVideos() {
     items = document.querySelectorAll('div#items[class="playlist-items style-scope ytd-playlist-panel-renderer"]');
-
-    console.log("Trying : "+ retryCount);
 
     return items[1]
 }
@@ -71,8 +63,6 @@ function calculateTotalTime(timeList) {
 }
 
 function insert(totalTime) {
-
-    
     let span = document.createElement('h1');
     span.className = 'totalTime';
     span.id = 'totalTime';
@@ -82,35 +72,51 @@ function insert(totalTime) {
 
     // let div = document.querySelectorAll("#publisher-container > div > yt-formatted-string")
     // let pending = document.querySelectorAll("#publisher-container > div > span")
-    let right = document.querySelectorAll("#container");
-    let below = document.querySelectorAll("#below");
     let playlist = document.querySelectorAll("#playlist")
 
     const totalTimeSpan = document.getElementById("totalTime");
     if (totalTimeSpan != null)
         totalTimeSpan.remove();
 
-    // for (const d of div)
-    //     d.appendChild(span);
-    
-    // for (const s of pending)
-    //     s.appendChild(span);
-
     for (const p of playlist)
         p.insertBefore(span, p.childNodes[0]);
-    
-    // for (const w of right)
-    //     w.insertBefore(span, w.childNodes[0]);
-    
-    // for (const b of below)
-    //     b.insertBefore(span, b.childNodes[0]);
 }
+console.log(document.documentElement)
 
 
 
 function main() {
+    // create the observer for #page-manager
+    const pageManagerObserver = new MutationObserver(mutationsList => {
+        console.log("page-manager changed")
+        console.log(document.querySelector('#page-manager #playlist #items'));
+        // check for #playlist element
+        const playlistElement = document.querySelector('#page-manager #playlist #items');
+        if (playlistElement) {
+            // stop observing #page-manager
+            pageManagerObserver.disconnect();
+
+            // create the observer for #playlist
+            const playlistObserver = new MutationObserver(m);
+            playlistObserver.observe(playlistElement, { attributes: true, childList: true, subtree: true });
+        }
+    });
+
+    // start observing #page-manager
+    pageManagerObserver.observe(document.documentElement, { childList: true, subtree: true });
+    console.log("page-manager observer started");
+}
+
+const getDurationHeader = async () => 
+    (await import(chrome.runtime.getURL("scripts/duration_header.js"))).getDurationHeader();
+
+
+function m() {
+    //new
+    console.log(getDurationHeader());
+    // old
     let videos = undefined;
-    retryCount++;
+
     videos = getVideos();
 
     if (videos == undefined && videos.length == 0) {
@@ -119,16 +125,15 @@ function main() {
     }
 
     videos = videos.children;
-    console.log(videos);
 
     let timeList = getTotalTime(videos);
-    console.log(timeList);
 
     let totalTime = calculateTotalTime(timeList);
-    console.log(totalTime);
 
     insert(totalTime);
 }
 
-setInterval(main, 5000);
+
+main();
+// setInterval(main, 5000);
 
