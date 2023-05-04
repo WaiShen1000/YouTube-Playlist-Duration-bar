@@ -117,18 +117,30 @@ function main() {
         console.log("List not found");
         return;
     }
-
+    // test()
     videos = videos.children;
-    console.log(videos);
 
     let timeList = getTotalTime(videos);
-    console.log(timeList);
 
     let totalTime = calculateTotalTime(timeList);
-    console.log(totalTime);
 
     insert(totalTime);
 }
 
-setInterval(main, 5000);
+function test() {
+    console.log("test");
 
+    let playlistTopHeader = document.querySelectorAll("#playlist > #header-top-row")
+    let playlistSecondHeader = document.createElement("div");
+    playlistSecondHeader.id = "header-top-row-second";
+    playlistTopHeader.append(playlistSecondHeader);
+
+    let span = document.createElement('h1');
+    span.className = 'totalTime';
+    span.id = 'abc';
+    span.textContent = "Playlist time : ";
+
+    playlistSecondHeader.appendChild(span);
+}
+
+setInterval(main, 5000);
