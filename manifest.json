@@ -33,8 +33,8 @@
         "default_popup": "hello.html"
     },
     "icons": {
-        "16": "icons/ticon.png",
-        "48": "icons/ticon.png",
-        "128": "icons/ticon.png"
+        "16": "icons/icon.png",
+        "48": "icons/icon.png",
+        "128": "icons/icon.png"
     }
 }
