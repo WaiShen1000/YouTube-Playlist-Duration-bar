@@ -81,24 +81,29 @@ function insert(totalTime) {
     for (const p of playlist)
         p.insertBefore(span, p.childNodes[0]);
 }
-console.log(document.documentElement)
 
+const getDurationHeader = async () => {
+    (await import(chrome.runtime.getURL("scripts/duration_header.js"))).getDurationHeader();
+}
 
+const getVideoTimeList = async () => {
+    (await import(chrome.runtime.getURL("scripts/playlist_item.js"))).getVideoTimeList();
+}
 
-function main() {
-    // create the observer for #page-manager
+function startObserver() {
+    // create the observer for whole web page
     const pageManagerObserver = new MutationObserver(mutationsList => {
-        console.log("page-manager changed")
-        console.log(document.querySelector('#page-manager #playlist #items'));
-        // check for #playlist element
-        const playlistElement = document.querySelector('#page-manager #playlist #items');
+        // check for #playlist items element
+        const playlistElement = document.querySelector('#page-manager #playlist');
+        // if it exists
         if (playlistElement) {
             // stop observing #page-manager
             pageManagerObserver.disconnect();
 
             // create the observer for #playlist
-            const playlistObserver = new MutationObserver(m);
-            playlistObserver.observe(playlistElement, { attributes: true, childList: true, subtree: true });
+            const playlistObserver = new MutationObserver(updateDuration);
+            playlistObserver.observe(playlistElement, { childList: true, subtree: true });
+            console.log("playlist observer started");
         }
     });
 
@@ -107,33 +112,32 @@ function main() {
     console.log("page-manager observer started");
 }
 
-const getDurationHeader = async () => 
-    (await import(chrome.runtime.getURL("scripts/duration_header.js"))).getDurationHeader();
-
-
-function m() {
+function updateDuration() {
     //new
-    console.log(getDurationHeader());
+    let durationHeader = getDurationHeader();
+    console.log("==========")
+    console.log(getVideoTimeList());
+
     // old
-    let videos = undefined;
+    // let videos = undefined;
 
-    videos = getVideos();
+    // videos = getVideos();
 
-    if (videos == undefined && videos.length == 0) {
-        console.log("List not found");
-        return;
-    }
+    // if (videos == undefined && videos.length == 0) {
+    //     console.log("List not found");
+    //     return;
+    // }
 
-    videos = videos.children;
+    // videos = videos.children;
 
-    let timeList = getTotalTime(videos);
+    // let timeList = getTotalTime(videos);
 
-    let totalTime = calculateTotalTime(timeList);
+    // let totalTime = calculateTotalTime(timeList);
 
-    insert(totalTime);
+    // insert(totalTime);
 }
 
 
-main();
+startObserver();
 // setInterval(main, 5000);
 

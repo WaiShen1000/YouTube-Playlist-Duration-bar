@@ -25,7 +25,8 @@
                 "https://www.youtube.com/*"
             ],
             "resources": [
-                "scripts/duration_header.js"
+                "scripts/duration_header.js",
+                "scripts/playlist_item.js"
             ]
         }
     ],

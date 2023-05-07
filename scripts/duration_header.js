@@ -1,8 +1,7 @@
 var count = 0;
 
 export const getDurationHeader = () => {
-    count++;
-    console.log(count)
+    console.log(++count);
     
     // Try get duration header
     let durationHeader = document.getElementById('duration-header');
