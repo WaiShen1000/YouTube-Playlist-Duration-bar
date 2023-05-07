@@ -1,7 +1,7 @@
 {
-    "name": "Youtube Playlist",
+    "name": "Youtube Playlist Duration",
     "version": "0.2.0",
-    "description": "Youtube extension",
+    "description": "Show playlist duration when playing YouTube video",
     "manifest_version": 3,
     "permissions": [
         "tabs"
@@ -25,12 +25,16 @@
                 "https://www.youtube.com/*"
             ],
             "resources": [
-                "scripts/duration_header.js",
-                "scripts/playlist_item.js"
+                "scripts/duration_header.js"
             ]
         }
     ],
     "action": {
         "default_popup": "hello.html"
+    },
+    "icons": {
+        "16": "icons/ticon.png",
+        "48": "icons/ticon.png",
+        "128": "icons/ticon.png"
     }
 }
