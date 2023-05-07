@@ -5,6 +5,7 @@ export const getVideoTimeList = () => {
 
     // a for loop to loop through the videos list and pass to getVideoTime, then store each result in allTimes as list of string
     for (let i = 0; i < videos.length; i++) 
+        console.log(videos[i])
         timeList[i] = getVideoTime(videos[i]);
     // console.log(timeList);
     return timeList;
