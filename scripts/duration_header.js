@@ -27,7 +27,7 @@ const createUI = (durationHeader) => {
     // Create duration header div
     let divHeader = document.createElement("div");
     divHeader.id = "duration-header";
-    divHeader.style.margin = "5px 10px 0px 0px";
+    divHeader.style.margin = "10px 10px 0px 0px";
     divHeader.style.border = "1px solid #555";
     divHeader.style.borderRadius = "10px";
     divHeader.style.backgroundColor = "rgba(211, 211, 211, 0.1)";
