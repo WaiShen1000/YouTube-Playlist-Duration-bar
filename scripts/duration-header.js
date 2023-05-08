@@ -1,67 +1,44 @@
 var count = 0;
 
 export const updateDuration = () => {
+    console.log("updateDuration called " + count++ + " times");
+
     let { watchedList, remainingList } = getVideoTimeList();
     let { watchedTs, remainingTs, totalTs, watchedPercent } = calculateTotalTime(watchedList, remainingList);
-    console.log(watchedTs, remainingTs, totalTs, watchedPercent);
-    let durationHeader = getDurationHeader();
+    
+    if (document.getElementById('duration-header') === null)
+        createUI();
+
     updateUI(watchedTs, remainingTs, totalTs, watchedPercent);
 }
 
-export const getDurationHeader = () => {
-    console.log(++count);
-    
-    // Try get duration header
-    let durationHeader = document.getElementById('duration-header');
-
-    // If duration header doesn't exist, create it
-    if (durationHeader === null) 
-        return createUI(durationHeader);
-    else
-        return durationHeader;
-}
-
-const createUI = (durationHeader) => {
+const createUI = () => {
     const headerContents = document.querySelector("#page-manager #playlist #header-contents")
 
     // Create duration header div
-    let divHeader = document.createElement("div");
-    divHeader.id = "duration-header";
-    divHeader.style.margin = "0px 10px 10px 0px";
-    divHeader.style.border = "1px solid #555";
-    divHeader.style.borderRadius = "10px";
-    divHeader.style.backgroundColor = "rgba(211, 211, 211, 0.1)";
-    headerContents.appendChild(divHeader);
-
-    // Create duration header content template
-    let durationHeaderContentTemplate = document.createElement('span');
-    durationHeaderContentTemplate.innerHTML = "Total";
-    durationHeaderContentTemplate.style.color = 'white';
-    durationHeaderContentTemplate.style.margin = "5px 15px 5px 5px";
-    durationHeaderContentTemplate.style.color = "#b3b3b3";
-    durationHeaderContentTemplate.style.fontSize = "1.5em";
-    durationHeaderContentTemplate.style.display = "block";
-    // durationHeaderContentTemplate.style.fontWeight = "bold";
-    durationHeaderContentTemplate.style.textAlign = "center";
+    let divDurationHeader = document.createElement("div");
+    divDurationHeader.id = "duration-header";
+    divDurationHeader.className = "duration-block";
+    headerContents.appendChild(divDurationHeader);
 
     // Create duration-total span, copy from template
-    let durationTotal = durationHeaderContentTemplate.cloneNode(true);
+    let durationTotal = document.createElement('span');
     durationTotal.id = 'duration-total';
+    durationTotal.className = 'duration-details';
     durationTotal.title = "Total playlist duration";
     durationTotal.innerHTML = "Playlist duration: &nbsp;2:54:15";
 
-    // Create duration span, copy from template
-    let durationWatched = durationHeaderContentTemplate.cloneNode(true);
+    // Create duration span
+    let durationWatched = document.createElement('span');
     durationWatched.id = 'duration-watched';
+    durationWatched.className = 'duration-details';
     durationWatched.title = "Watched / Remaining (watched %)";
     durationWatched.innerHTML = "54:15 / 2:00:00 (20%)";
 
-
-    durationHeader = document.getElementById('duration-header');
+    // Append duration span to duration header
+    let durationHeader = document.getElementById('duration-header');
     durationHeader.appendChild(durationTotal);
     durationHeader.appendChild(durationWatched);
-
-    return durationHeader
 }
 
 export const getVideoTimeList = () => {
@@ -97,7 +74,6 @@ const calculateTotalTime = (watchedList, remainingList) => {
     let remainingSeconds = timeListToSeconds(remainingList);
     let totalSeconds = watchedSeconds + remainingSeconds;
     let watchedPercent = Math.round(watchedSeconds / totalSeconds * 100);
-    console.log(watchedSeconds, remainingSeconds, totalSeconds);
 
     let watchedTs = secondsToTs(watchedSeconds);
     let remainingTs = secondsToTs(remainingSeconds);

@@ -1,6 +1,5 @@
-const updateDuration = async () => {
-    (await import(chrome.runtime.getURL("scripts/duration_header.js"))).updateDuration();
-}
+const updateDuration = async () => 
+    (await import(chrome.runtime.getURL("scripts/duration-header.js"))).updateDuration();
 
 const startObserver = () => {
     // create the observer for whole web page
