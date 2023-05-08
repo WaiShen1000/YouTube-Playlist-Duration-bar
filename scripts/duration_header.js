@@ -22,16 +22,16 @@ export const getDurationHeader = () => {
 }
 
 const createUI = (durationHeader) => {
-    const topHeader = document.querySelector("#page-manager #playlist #header-top-row")
+    const headerContents = document.querySelector("#page-manager #playlist #header-contents")
 
     // Create duration header div
     let divHeader = document.createElement("div");
     divHeader.id = "duration-header";
-    divHeader.style.margin = "10px 10px 0px 0px";
+    divHeader.style.margin = "0px 10px 10px 0px";
     divHeader.style.border = "1px solid #555";
     divHeader.style.borderRadius = "10px";
     divHeader.style.backgroundColor = "rgba(211, 211, 211, 0.1)";
-    topHeader.insertAdjacentElement('afterend', divHeader);
+    headerContents.appendChild(divHeader);
 
     // Create duration header content template
     let durationHeaderContentTemplate = document.createElement('span');
@@ -39,9 +39,9 @@ const createUI = (durationHeader) => {
     durationHeaderContentTemplate.style.color = 'white';
     durationHeaderContentTemplate.style.margin = "5px 15px 5px 5px";
     durationHeaderContentTemplate.style.color = "#b3b3b3";
-    durationHeaderContentTemplate.style.fontSize = "1.75em";
+    durationHeaderContentTemplate.style.fontSize = "1.5em";
     durationHeaderContentTemplate.style.display = "block";
-    durationHeaderContentTemplate.style.fontWeight = "bold";
+    // durationHeaderContentTemplate.style.fontWeight = "bold";
     durationHeaderContentTemplate.style.textAlign = "center";
 
     // Create duration-total span, copy from template
