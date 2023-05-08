@@ -13,3 +13,18 @@
     display: block;
     text-align: center;
 }
+
+.duration-block[dark] {
+    background-color: rgba(211, 211, 211, 0.1);
+    border: 1px solid #555;
+    border-radius: 10px;
+    margin: 0px 10px 10px 0px;
+}
+
+.duration-details[dark] {
+    color: #b3b3b3;
+    margin: 5px 15px 5px 5px;
+    font-size: 1.5em;
+    display: block;
+    text-align: center;
+}

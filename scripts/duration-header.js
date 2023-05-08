@@ -1,11 +1,15 @@
-var count = 0;
+let count = 0;
+let theme;
 
 export const updateDuration = () => {
     console.log("updateDuration called " + count++ + " times");
 
+    if (theme === undefined)
+        theme = checkTheme();
+
     let { watchedList, remainingList } = getVideoTimeList();
     let { watchedTs, remainingTs, totalTs, watchedPercent } = calculateTotalTime(watchedList, remainingList);
-    
+
     if (document.getElementById('duration-header') === null)
         createUI();
 
@@ -17,12 +21,14 @@ const createUI = () => {
 
     // Create duration header div
     let divDurationHeader = document.createElement("div");
+    divDurationHeader.setAttribute(theme, "");
     divDurationHeader.id = "duration-header";
     divDurationHeader.className = "duration-block";
     headerContents.appendChild(divDurationHeader);
 
     // Create duration-total span, copy from template
     let durationTotal = document.createElement('span');
+    durationTotal.setAttribute(theme, "");
     durationTotal.id = 'duration-total';
     durationTotal.className = 'duration-details';
     durationTotal.title = "Total playlist duration";
@@ -30,6 +36,7 @@ const createUI = () => {
 
     // Create duration span
     let durationWatched = document.createElement('span');
+    durationWatched.setAttribute(theme, "");
     durationWatched.id = 'duration-watched';
     durationWatched.className = 'duration-details';
     durationWatched.title = "Watched / Remaining (watched %)";
@@ -41,7 +48,11 @@ const createUI = () => {
     durationHeader.appendChild(durationWatched);
 }
 
-export const getVideoTimeList = () => {
+const checkTheme = () => {
+    return (document.querySelector("[dark]")) ? ("dark") : ("light");
+}
+
+const getVideoTimeList = () => {
     let videos = document.querySelector("#page-manager #playlist #items").children
     let ts = "";
     let isWatched = true;
@@ -51,7 +62,7 @@ export const getVideoTimeList = () => {
     for (const video of videos) {
         if (isWatched == true && video.querySelector("#index").innerText === "▶")
             isWatched = false;
-            
+
         let videoTimeElement = video.querySelector("#text");
 
         if (videoTimeElement == null || videoTimeElement.innerText == '') {
@@ -78,7 +89,7 @@ const calculateTotalTime = (watchedList, remainingList) => {
     let watchedTs = secondsToTs(watchedSeconds);
     let remainingTs = secondsToTs(remainingSeconds);
     let totalTs = secondsToTs(totalSeconds);
-    
+
     return { watchedTs, remainingTs, totalTs, watchedPercent };
 }
 
@@ -101,9 +112,7 @@ const timeListToSeconds = (timeList) => {
             seconds = parseInt(time[1]);
         }
 
-        totalSeconds += seconds;
-        totalSeconds += minutes * 60;
-        totalSeconds += hours * 60 * 60;
+        totalSeconds += seconds + (minutes * 60) + (hours * 60 * 60);
     }
 
     return totalSeconds;
@@ -114,15 +123,12 @@ const secondsToTs = (seconds) => {
     let totalMinutes = Math.floor((seconds - totalHours * 3600) / 60);
     let totalSecondsLeft = seconds - totalHours * 3600 - totalMinutes * 60;
 
-    let zeroPad = (val) => val < 10 ? "0" + val : val;
-    let result;
+    let zeroPad = (val) => (val < 10) ? ("0" + val) : (val);
 
     if (totalHours == 0)
-        result = totalMinutes + ":" + zeroPad(totalSecondsLeft);
+        return totalMinutes + ":" + zeroPad(totalSecondsLeft);
     else
-        result = totalHours + ":" + zeroPad(totalMinutes) + ":" + zeroPad(totalSecondsLeft);
-        
-    return result;
+        return totalHours + ":" + zeroPad(totalMinutes) + ":" + zeroPad(totalSecondsLeft);
 }
 
 const updateUI = (watchedTs, remainingTs, totalTs, watchedPercent) => {
