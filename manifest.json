@@ -3,7 +3,7 @@
     "version": "0.2.4",
     "description": "Show playlist duration when playing YouTube video",
     "manifest_version": 3,
-    "permissions": [
+    "host_permissions": [
         "https://www.youtube.com/*"
     ],
     "content_scripts": [
@@ -13,6 +13,9 @@
             ],
             "js": [
                 "scripts/content.js"
+            ],
+            "css": [
+                "css/duration-playlist.css"
             ]
         }
     ],
@@ -22,7 +25,7 @@
                 "https://www.youtube.com/*"
             ],
             "resources": [
-                "scripts/duration_header.js"
+                "scripts/duration-header.js"
             ]
         }
     ],
