@@ -1,0 +1,32 @@
+/* Common style */
+.duration-block {
+    border-radius: 10px;
+    margin: 0px 10px 10px 0px;
+}
+
+.duration-content {
+    margin: 5px 15px 5px 5px;
+    font-size: 1.5em;
+    display: block;
+    text-align: center;
+}
+
+/* Dark mode color */
+.duration-block[dark] {
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.duration-content[dark] {
+    color: rgba(255, 255, 255, 1);
+}
+
+/* Light mode color */
+.duration-block[light] {
+    background-color: rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.duration-content[light] {
+    color: rgba(0, 0, 0, 1);
+}

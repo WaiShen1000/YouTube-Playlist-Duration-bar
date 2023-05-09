@@ -30,7 +30,7 @@ const createUI = () => {
     let durationTotal = document.createElement('span');
     durationTotal.setAttribute(theme, "");
     durationTotal.id = 'duration-total';
-    durationTotal.className = 'duration-details';
+    durationTotal.className = 'duration-content';
     durationTotal.title = "Total playlist duration";
     durationTotal.innerHTML = "Playlist duration: &nbsp;2:54:15";
 
@@ -38,7 +38,7 @@ const createUI = () => {
     let durationWatched = document.createElement('span');
     durationWatched.setAttribute(theme, "");
     durationWatched.id = 'duration-watched';
-    durationWatched.className = 'duration-details';
+    durationWatched.className = 'duration-content';
     durationWatched.title = "Watched / Remaining (watched %)";
     durationWatched.innerHTML = "54:15 / 2:00:00 (20%)";
 
@@ -135,6 +135,6 @@ const updateUI = (watchedTs, remainingTs, totalTs, watchedPercent) => {
     let durationTotal = document.getElementById('duration-total');
     let durationWatched = document.getElementById('duration-watched');
 
-    durationTotal.innerHTML = "Playlist duration: " + totalTs;
+    durationTotal.innerHTML = "Playlist total: " + totalTs;
     durationWatched.innerHTML = watchedTs + " / " + remainingTs + " (" + watchedPercent + "%)";
 }
