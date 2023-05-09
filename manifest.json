@@ -1,6 +1,6 @@
 {
     "name": "Youtube Playlist Duration",
-    "version": "0.3.0",
+    "version": "0.3.1",
     "description": "Show playlist duration when playing YouTube video",
     "manifest_version": 3,
     "host_permissions": [
