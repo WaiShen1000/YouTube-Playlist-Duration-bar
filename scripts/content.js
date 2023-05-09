@@ -23,4 +23,8 @@ const startObserver = () => {
     console.log("page-manager observer started");
 }
 
+const main = () => {
+    updateDurationPlaying();
+}
+
 startObserver();
