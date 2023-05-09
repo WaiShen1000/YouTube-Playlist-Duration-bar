@@ -1,7 +1,7 @@
 /* Common style */
 .duration-block {
     border-radius: 10px;
-    margin: 0px 10px 10px 0px;
+    margin: 10px 20px 20px 10px;
 }
 
 .duration-content {
@@ -13,7 +13,7 @@
 
 /* Dark mode color */
 .duration-block[dark] {
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
