@@ -29,9 +29,6 @@
             ]
         }
     ],
-    "action": {
-        "default_popup": "hello.html"
-    },
     "icons": {
         "16": "icons/icon.png",
         "48": "icons/icon.png",
