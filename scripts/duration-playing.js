@@ -1,8 +1,8 @@
 let count = 0;
 let theme;
 
-export const updateDuration = () => {
-    console.log("updateDuration called " + count++ + " times");
+export const updateDurationPlaying = () => {
+    // console.log("updateDuration called " + count++ + " times");
 
     if (theme === undefined)
         theme = checkTheme();

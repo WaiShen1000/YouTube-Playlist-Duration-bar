@@ -15,7 +15,7 @@
                 "scripts/content.js"
             ],
             "css": [
-                "css/duration-header.css"
+                "css/duration-playing.css"
             ]
         }
     ],
@@ -25,7 +25,7 @@
                 "https://www.youtube.com/*"
             ],
             "resources": [
-                "scripts/duration-header.js"
+                "scripts/duration-playing.js"
             ]
         }
     ],
