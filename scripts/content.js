@@ -1,4 +1,4 @@
-const updateDurationPlaying = async () => 
+const updateDurationPlaying = async () =>
     (await import(chrome.runtime.getURL("scripts/duration-playing.js"))).updateDurationPlaying();
 
 const startObserver = () => {
@@ -12,7 +12,7 @@ const startObserver = () => {
             pageManagerObserver.disconnect();
 
             // create the observer for #playlist
-            const playlistObserver = new MutationObserver(updateDurationPlaying);
+            const playlistObserver = new MutationObserver(main);
             playlistObserver.observe(playlistElement, { childList: true, subtree: true });
             console.log("playlist observer started");
         }
