@@ -1,6 +1,14 @@
 let count = 0;
 let theme;
 
+let divDurationBlock;
+let divDurationProgress;
+let durationTotal;
+let divCurrentBlock;
+let durationWatched;
+let durationPercent;
+let durationRemaining;
+
 export const updateDurationPlaying = () => {
     // console.log("updateDuration called " + count++ + " times");
 
@@ -10,42 +18,72 @@ export const updateDurationPlaying = () => {
     let { watchedList, remainingList } = getVideoTimeList();
     let { watchedTs, remainingTs, totalTs, watchedPercent } = calculateTotalTime(watchedList, remainingList);
 
-    if (document.getElementById('duration-header') === null)
-        createUI();
+    if (document.getElementById('duration-block') === null) {
+        createUiELement();
+        appendUiElement();
+    }
 
     updateUI(watchedTs, remainingTs, totalTs, watchedPercent);
 }
 
-const createUI = () => {
-    const headerContents = document.querySelector("#page-manager #playlist #header-contents")
+const createUiELement = () => {
+    // <div Outer duration block
+    divDurationBlock = document.createElement("div");
+    divDurationBlock.setAttribute(theme, "");
+    divDurationBlock.id = "duration-block";
+    divDurationBlock.className = "duration-block";
 
-    // Create duration header div
-    let divDurationHeader = document.createElement("div");
-    divDurationHeader.setAttribute(theme, "");
-    divDurationHeader.id = "duration-header";
-    divDurationHeader.className = "duration-block";
-    headerContents.appendChild(divDurationHeader);
+    // <div> Progress bar
+    divDurationProgress = document.createElement("div");
+    divDurationProgress.setAttribute(theme, "");
+    divDurationProgress.id = "duration-progress";
+    divDurationProgress.className = "duration-progress";
 
-    // Create duration-total span, copy from template
-    let durationTotal = document.createElement('span');
+    // <Span> Total: 
+    durationTotal = document.createElement('span');
     durationTotal.setAttribute(theme, "");
     durationTotal.id = 'duration-total';
     durationTotal.className = 'duration-content';
     durationTotal.title = "Total playlist duration";
-    durationTotal.innerHTML = "Playlist duration: &nbsp;2:54:15";
 
-    // Create duration span
-    let durationWatched = document.createElement('span');
+    // <div> Inner current block
+    divCurrentBlock = document.createElement("div");
+    divCurrentBlock.id = "current-block";
+    divCurrentBlock.className = "current-block";
+
+    // <Span> Watched time
+    durationWatched = document.createElement('span');
     durationWatched.setAttribute(theme, "");
     durationWatched.id = 'duration-watched';
-    durationWatched.className = 'duration-content';
-    durationWatched.title = "Watched / Remaining (watched %)";
-    durationWatched.innerHTML = "54:15 / 2:00:00 (20%)";
+    durationWatched.className = 'current-content';
+    durationWatched.title = "Time watched";
 
+    // <Span> watched percent
+    durationPercent = document.createElement('span');
+    durationPercent.setAttribute(theme, "");
+    durationPercent.id = 'duration-percent';
+    durationPercent.className = 'current-content';
+    durationPercent.title = "Watched %";
+
+    // <Span> Remaining time
+    durationRemaining = document.createElement('span');
+    durationRemaining.setAttribute(theme, "");
+    durationRemaining.id = 'duration-remaining';
+    durationRemaining.className = 'current-content';
+    durationRemaining.title = "Time remaining";
+}
+
+const appendUiElement = () => {
     // Append duration span to duration header
-    let durationHeader = document.getElementById('duration-header');
-    durationHeader.appendChild(durationTotal);
-    durationHeader.appendChild(durationWatched);
+    const headerContents = document.querySelector("#page-manager #playlist #header-contents")
+    headerContents.appendChild(divDurationBlock);
+    divDurationBlock.appendChild(divDurationProgress);
+
+    divDurationBlock.appendChild(durationTotal);
+    divDurationBlock.appendChild(divCurrentBlock);
+    divCurrentBlock.appendChild(durationWatched);
+    divCurrentBlock.appendChild(durationPercent);
+    divCurrentBlock.appendChild(durationRemaining);
 }
 
 const checkTheme = () => {
@@ -84,7 +122,9 @@ const calculateTotalTime = (watchedList, remainingList) => {
     let watchedSeconds = timeListToSeconds(watchedList);
     let remainingSeconds = timeListToSeconds(remainingList);
     let totalSeconds = watchedSeconds + remainingSeconds;
-    let watchedPercent = Math.round(watchedSeconds / totalSeconds * 100);
+    let watchedPercent = 0;
+    if (totalSeconds > 0)
+        watchedPercent = Math.round(watchedSeconds / totalSeconds * 100);
 
     let watchedTs = secondsToTs(watchedSeconds);
     let remainingTs = secondsToTs(remainingSeconds);
@@ -132,9 +172,9 @@ const secondsToTs = (seconds) => {
 }
 
 const updateUI = (watchedTs, remainingTs, totalTs, watchedPercent) => {
-    let durationTotal = document.getElementById('duration-total');
-    let durationWatched = document.getElementById('duration-watched');
-
-    durationTotal.innerHTML = "Playlist total: " + totalTs;
-    durationWatched.innerHTML = watchedTs + " / " + remainingTs + " (" + watchedPercent + "%)";
+    durationTotal.innerHTML = "Total: " + totalTs;
+    durationWatched.innerHTML = watchedTs;
+    durationRemaining.innerHTML = remainingTs;
+    durationPercent.innerHTML = watchedPercent + "%";
+    divDurationProgress.style.width = watchedPercent + "%";
 }

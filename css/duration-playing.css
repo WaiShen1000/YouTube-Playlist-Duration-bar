@@ -2,19 +2,48 @@
 .duration-block {
     border-radius: 10px;
     margin: 10px 20px 20px 10px;
+    position: relative;
+}
+
+.current-block {
+    display: flex;
+    justify-content: space-between;
+    /* align-items: center; */
+    width: 100%;
+}
+
+.duration-progress {
+    position: absolute;
+    border-radius: 10px;
+    height: 100%;
+    width: 0%;
 }
 
 .duration-content {
-    margin: 5px 15px 5px 5px;
-    font-size: 1.5em;
+    margin: 5px 5px 5px 5px;
+    font-size: 1.7em;
     display: block;
     text-align: center;
+    font-weight: bold;
+}
+
+.current-content {
+    margin: 0px 5px 5px 5px;
+    font-size: 1.5em;
 }
 
 /* Dark mode color */
 .duration-block[dark] {
     background-color: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.duration-progress[dark] {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.current-content[dark] {
+    color: rgba(255, 255, 255, 1);
 }
 
 .duration-content[dark] {
@@ -27,6 +56,32 @@
     border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
+.duration-progress[light] {
+    background-color: rgba(0, 0, 0, 0.08);
+}
+
+.current-content[light] {
+    color: rgba(0, 0, 0, 1);
+}
+
 .duration-content[light] {
     color: rgba(0, 0, 0, 1);
+}
+
+/* By ID */
+#duration-watched {
+    width: 40%;
+    left: 0%;
+    text-align: left;
+}
+
+#duration-percent {
+    left: 50%;
+    text-align: center;
+}
+
+#duration-remaining {
+    width: 40%;
+    right: 0%;
+    text-align: right;
 }
