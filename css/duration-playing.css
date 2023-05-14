@@ -17,6 +17,7 @@
     border-radius: 10px;
     height: 100%;
     width: 0%;
+    z-index: 1;
 }
 
 .duration-content {
@@ -25,11 +26,13 @@
     display: block;
     text-align: center;
     font-weight: bold;
+    z-index: 2;
 }
 
 .current-content {
     margin: 0px 5px 5px 5px;
     font-size: 1.5em;
+    z-index: 2;
 }
 
 /* Dark mode color */

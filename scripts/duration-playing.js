@@ -77,10 +77,11 @@ const appendUiElement = () => {
     // Append duration span to duration header
     const headerContents = document.querySelector("#page-manager #playlist #header-contents")
     headerContents.appendChild(divDurationBlock);
-    divDurationBlock.appendChild(divDurationProgress);
 
+    divDurationBlock.appendChild(divDurationProgress);
     divDurationBlock.appendChild(durationTotal);
     divDurationBlock.appendChild(divCurrentBlock);
+    
     divCurrentBlock.appendChild(durationWatched);
     divCurrentBlock.appendChild(durationPercent);
     divCurrentBlock.appendChild(durationRemaining);
