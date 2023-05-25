@@ -21,9 +21,10 @@
 }
 
 .duration-content {
-    margin: 5px 5px 5px 5px;
+    margin: auto;
+    padding: 5px 0px 5px 0px;
     font-size: 1.7em;
-    display: block;
+    display:flex;
     text-align: center;
     font-weight: bold;
     z-index: 2;
