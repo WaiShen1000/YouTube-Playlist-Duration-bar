@@ -1,6 +1,6 @@
 {
     "name": "YouTube Playlist Duration bar",
-    "version": "0.4.0",
+    "version": "0.4.1",
     "description": "Show playlist duration bar when playing YouTube video",
     "manifest_version": 3,
     "host_permissions": [

@@ -1,20 +1,41 @@
 const updateDurationPlaying = async () =>
     (await import(chrome.runtime.getURL("scripts/duration-playing.js"))).updateDurationPlaying();
 
+let playingObserverStarted = false;
+let playlistObserverStarted = false;
+
 const startObserver = () => {
     // create the observer for whole web page
     const pageManagerObserver = new MutationObserver(mutationsList => {
         // check for #playlist items element
-        const playlistElement = document.querySelector('#page-manager > ytd-watch-flexy #playlist #items');
-        // if it exists
-        if (playlistElement) {
+        if (!playingObserverStarted) {
+            const playlistElement = document.querySelector('#page-manager > ytd-watch-flexy #playlist #items');
+
+            if (playlistElement) {
+                // create the observer for #playlist
+                const playingObserver = new MutationObserver(updateDurationPlaying);
+                playingObserver.observe(playlistElement, { childList: true, subtree: true });
+                playingObserverStarted = true;
+                console.log("playlist observer started");
+            }
+        }
+
+        // playlist contents in /playlist endpoint
+        if (!playlistObserverStarted) {
+            const playlistContents = document.querySelector('#page-manager [page-subtype="playlist"] #contents #contents #contents')
+
+            if (playlistContents) {
+                // create the observer for #playlist
+                console.log("playlist here!!!")
+
+                playlistObserverStarted = true;
+            }
+        }
+
+        if (playingObserverStarted && playlistObserverStarted) {
             // stop observing #page-manager
             pageManagerObserver.disconnect();
-
-            // create the observer for #playlist
-            const playlistObserver = new MutationObserver(main);
-            playlistObserver.observe(playlistElement, { childList: true, subtree: true });
-            console.log("playlist observer started");
+            console.log("page-manager observer stopped");
         }
     });
 
