@@ -1,4 +1,3 @@
-let count = 0;
 let theme;
 
 let divDurationBlock;
@@ -17,7 +16,7 @@ export const updateDurationPlaying = () => {
 
     let { watchedList, remainingList } = getVideoTimeList();
     let { watchedTs, remainingTs, totalTs, watchedPercent } = calculateTotalTime(watchedList, remainingList);
-
+    
     if (document.getElementById('duration-block') === null) {
         createUiELement();
         appendUiElement();
@@ -75,7 +74,7 @@ const createUiELement = () => {
 
 const appendUiElement = () => {
     // Append duration span to duration header
-    const headerContents = document.querySelector("#page-manager #playlist #header-contents")
+    const headerContents = document.querySelector("#page-manager > ytd-watch-flexy #playlist #header-contents")
     headerContents.appendChild(divDurationBlock);
 
     divDurationBlock.appendChild(divDurationProgress);
@@ -92,7 +91,7 @@ const checkTheme = () => {
 }
 
 const getVideoTimeList = () => {
-    let videos = document.querySelector("#page-manager #playlist #items").children
+    let videos = document.querySelector("#page-manager > ytd-watch-flexy #playlist #items").children
     let ts = "";
     let isWatched = true;
     let watchedList = [];
