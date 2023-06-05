@@ -1,0 +1,70 @@
+/* ========== Common style ========== */
+.duration-block {
+    border-radius: 10px;
+    position: relative;
+}
+
+.duration-progress-bar {
+    position: absolute;
+    border-radius: 10px;
+    height: 100%;
+    width: 0%;
+    z-index: 1;
+}
+
+.current-block {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.duration-content {
+    margin: 5px 5px 5px 5px;
+    font-size: 1.7em;
+    display: block;
+    text-align: center;
+    font-weight: bold;
+    z-index: 2;
+}
+
+.played-content {
+    margin: 0px 5px 5px 5px;
+    font-size: 1.5em;
+    z-index: 2;
+}
+
+/* ========== Dark mode color ========== */
+.duration-block[dark] {
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.duration-progress-bar[dark] {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.played-content[dark] {
+    color: rgba(255, 255, 255, 1);
+}
+
+.duration-content[dark] {
+    color: rgba(255, 255, 255, 1);
+}
+
+/* ========== Light mode color ========== */
+.duration-block[light] {
+    background-color: rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.duration-progress-bar[light] {
+    background-color: rgba(0, 0, 0, 0.08);
+}
+
+.played-content[light] {
+    color: rgba(0, 0, 0, 1);
+}
+
+.duration-content[light] {
+    color: rgba(0, 0, 0, 1);
+}

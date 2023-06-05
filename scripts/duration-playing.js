@@ -9,15 +9,13 @@ let durationPercent;
 let durationRemaining;
 
 export const updateDurationPlaying = () => {
-    // console.log("updateDuration called " + count++ + " times");
-
     if (theme === undefined)
         theme = checkTheme();
 
     let { watchedList, remainingList } = getVideoTimeList();
     let { watchedTs, remainingTs, totalTs, watchedPercent } = calculateTotalTime(watchedList, remainingList);
-    
-    if (document.getElementById('duration-block') === null) {
+
+    if (document.getElementById('duration-block-playing') === null) {
         createUiELement();
         appendUiElement();
     }
@@ -29,19 +27,19 @@ const createUiELement = () => {
     // <div Outer duration block
     divDurationBlock = document.createElement("div");
     divDurationBlock.setAttribute(theme, "");
-    divDurationBlock.id = "duration-block";
+    divDurationBlock.id = "duration-block-playing";
     divDurationBlock.className = "duration-block";
 
     // <div> Progress bar
     divDurationProgress = document.createElement("div");
     divDurationProgress.setAttribute(theme, "");
-    divDurationProgress.id = "duration-progress";
+    divDurationProgress.id = "duration-progress-bar";
     divDurationProgress.className = "duration-progress";
 
     // <Span> Total: 
     durationTotal = document.createElement('span');
     durationTotal.setAttribute(theme, "");
-    durationTotal.id = 'duration-total';
+    durationTotal.id = 'duration-total-playing';
     durationTotal.className = 'duration-content';
     durationTotal.title = "Total playlist duration";
 
@@ -54,21 +52,21 @@ const createUiELement = () => {
     durationWatched = document.createElement('span');
     durationWatched.setAttribute(theme, "");
     durationWatched.id = 'duration-watched';
-    durationWatched.className = 'current-content';
+    durationWatched.className = 'played-content';
     durationWatched.title = "Time watched";
 
     // <Span> watched percent
     durationPercent = document.createElement('span');
     durationPercent.setAttribute(theme, "");
     durationPercent.id = 'duration-percent';
-    durationPercent.className = 'current-content';
+    durationPercent.className = 'played-content';
     durationPercent.title = "Watched %";
 
     // <Span> Remaining time
     durationRemaining = document.createElement('span');
     durationRemaining.setAttribute(theme, "");
     durationRemaining.id = 'duration-remaining';
-    durationRemaining.className = 'current-content';
+    durationRemaining.className = 'played-content';
     durationRemaining.title = "Time remaining";
 }
 
@@ -80,7 +78,7 @@ const appendUiElement = () => {
     divDurationBlock.appendChild(divDurationProgress);
     divDurationBlock.appendChild(durationTotal);
     divDurationBlock.appendChild(divCurrentBlock);
-    
+
     divCurrentBlock.appendChild(durationWatched);
     divCurrentBlock.appendChild(durationPercent);
     divCurrentBlock.appendChild(durationRemaining);

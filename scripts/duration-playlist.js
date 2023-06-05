@@ -1,5 +1,9 @@
 let theme;
 
+let divDurationBlock;
+let durationTotal;
+let videoCounted;
+
 export const updateDurationPlaylist = () => {
     if (theme === undefined)
         theme = checkTheme();
@@ -9,9 +13,42 @@ export const updateDurationPlaylist = () => {
 
     let totalTs = secondsToTs(totalSeconds);
 
-    // console.log('fullList === ', fullList);
-    // console.log('video counted === ', count);
-    // console.log('totalTs === ', totalTs);
+    if (document.getElementById('duration-block-playlist') === null) {
+        createUiELement();
+        appendUiElement();
+    }
+
+    updateUI(totalTs, count);
+}
+
+const createUiELement = () => {
+    // <div Outer duration block
+    divDurationBlock = document.createElement("div");
+    divDurationBlock.setAttribute(theme, "");
+    divDurationBlock.id = "duration-block-playlist";
+    divDurationBlock.className = "duration-block";
+
+    // <Span> Total:
+    durationTotal = document.createElement('span');
+    durationTotal.setAttribute(theme, "");
+    durationTotal.id = 'duration-total-playlist';
+    durationTotal.className = 'duration-content';
+    durationTotal.title = "Total playlist duration";
+
+    // <Span> Video counted
+    videoCounted = document.createElement('span');
+    videoCounted.setAttribute(theme, "");
+    videoCounted.id = 'video-counted';
+    videoCounted.className = 'duration-content';
+    videoCounted.title = "Video counted";
+}
+
+const appendUiElement = () => {
+    const headerContents = document.querySelector('#page-manager [page-subtype="playlist"] > ytd-playlist-header-renderer > div > div.immersive-header-content.style-scope.ytd-playlist-header-renderer > div.thumbnail-and-metadata-wrapper.style-scope.ytd-playlist-header-renderer > div > div.metadata-action-bar.style-scope.ytd-playlist-header-renderer')
+    headerContents.insertAdjacentElement('afterend', divDurationBlock);
+
+    divDurationBlock.appendChild(durationTotal);
+    divDurationBlock.appendChild(videoCounted);
 }
 
 const checkTheme = () => {
@@ -75,4 +112,9 @@ const secondsToTs = (seconds) => {
         return totalMinutes + ":" + zeroPad(totalSecondsLeft);
     else
         return totalHours + ":" + zeroPad(totalMinutes) + ":" + zeroPad(totalSecondsLeft);
+}
+
+const updateUI = (totalTs, count) => {
+    durationTotal.innerText = "Total duration: " + totalTs;
+    videoCounted.innerText = "Video counted: " + count;
 }

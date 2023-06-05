@@ -1,6 +1,6 @@
 {
     "name": "YouTube Playlist Duration bar",
-    "version": "0.4.1",
+    "version": "0.5.0",
     "description": "Show playlist progress and duration when playing YouTube video",
     "manifest_version": 3,
     "host_permissions": [
@@ -15,7 +15,9 @@
                 "scripts/content.js"
             ],
             "css": [
-                "css/duration-playing.css"
+                "css/common.css",
+                "css/duration-playing.css",
+                "css/duration-playlist.css"
             ]
         }
     ],
