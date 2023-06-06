@@ -33,15 +33,15 @@ const createUiELement = () => {
     // <div> Progress bar
     divDurationProgress = document.createElement("div");
     divDurationProgress.setAttribute(theme, "");
-    divDurationProgress.id = "duration-progress-bar";
-    divDurationProgress.className = "duration-progress";
+    divDurationProgress.id = "progress-bar-playing";
+    divDurationProgress.className = "progress-bar";
 
     // <Span> Total: 
     durationTotal = document.createElement('span');
     durationTotal.setAttribute(theme, "");
     durationTotal.id = 'duration-total-playing';
     durationTotal.className = 'duration-content';
-    durationTotal.title = "Total playlist duration";
+    durationTotal.title = "Total playlist duration.\nOnly count video shown in the playlist panel.";
 
     // <div> Inner current block
     divCurrentBlock = document.createElement("div");
@@ -60,7 +60,7 @@ const createUiELement = () => {
     durationPercent.setAttribute(theme, "");
     durationPercent.id = 'duration-percent';
     durationPercent.className = 'played-content';
-    durationPercent.title = "Watched %";
+    durationPercent.title = "% of time watched";
 
     // <Span> Remaining time
     durationRemaining = document.createElement('span');

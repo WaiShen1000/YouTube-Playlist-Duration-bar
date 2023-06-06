@@ -1,7 +1,7 @@
 {
     "name": "YouTube Playlist Duration bar",
     "version": "0.5.0",
-    "description": "Show playlist progress and duration when playing YouTube video",
+    "description": "A progress bar to show playlist progress and duration",
     "manifest_version": 3,
     "host_permissions": [
         "https://www.youtube.com/*"

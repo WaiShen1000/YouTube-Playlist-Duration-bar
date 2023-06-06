@@ -1,3 +1,4 @@
+// Playlist page no need dark light mode switching
 let theme;
 
 let divDurationBlock;
@@ -33,14 +34,14 @@ const createUiELement = () => {
     durationTotal.setAttribute(theme, "");
     durationTotal.id = 'duration-total-playlist';
     durationTotal.className = 'duration-content';
-    durationTotal.title = "Total playlist duration";
+    durationTotal.title = "Only count video shown in the playlist panel.";
 
     // <Span> Video counted
     videoCounted = document.createElement('span');
     videoCounted.setAttribute(theme, "");
     videoCounted.id = 'video-counted';
     videoCounted.className = 'duration-content';
-    videoCounted.title = "Video counted";
+    videoCounted.title = "If this number not matching the total number of videos in this playlist,\nscroll down to load more video, or some videos are hidden.";
 }
 
 const appendUiElement = () => {
@@ -116,5 +117,5 @@ const secondsToTs = (seconds) => {
 
 const updateUI = (totalTs, count) => {
     durationTotal.innerText = "Total duration: " + totalTs;
-    videoCounted.innerText = "Video counted: " + count;
+    videoCounted.innerText = "Videos counted: " + count;
 }
