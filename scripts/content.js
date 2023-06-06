@@ -40,12 +40,13 @@ const startObserver = () => {
             if (playlistContents) {
                 // create the observer for #playlist
                 const playlistObserver = new MutationObserver(mutationsList => {
-                    updateDurationPlaylist();   
+                    updateDurationPlaylist();
                 });
 
                 playlistObserver.observe(playlistContents, { childList: true, subtree: true });
                 playlistObserverStarted = true;
                 console.log("START :: Playlist observer started");
+                updateDurationPlaylist(); 
             }
         }
 
