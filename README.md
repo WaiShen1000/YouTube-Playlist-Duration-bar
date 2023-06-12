@@ -21,3 +21,9 @@ Works on any type of playlist including public or private playlist, Watch later,
 
 # Installation
 Chrome Web Store: [YouTube Playlist Duration bar](https://chrome.google.com/webstore/detail/youtube-playlist-duration/klbacnllhiilbiiedcbgfafmnedldgeg?hl=en-GB&authuser=0)
+
+# Screenshots
+![](screenshot/playing-both.png)
+![](screenshot/playlist-bothsize-dark.png)
+![](screenshot/playing-large-dark.png)
+![](screenshot/playing-large-light.png)
