@@ -1,3 +1,4 @@
+# YouTube Playlist Duration bar
 [YouTube Playlist Duration bar](https://chrome.google.com/webstore/detail/youtube-playlist-duration/klbacnllhiilbiiedcbgfafmnedldgeg?hl=en-GB&authuser=0) is a Chrome extension ti display a progress bar to show playlist progress and duration.
 
 # Description
