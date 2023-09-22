@@ -1,4 +1,3 @@
-let count = 0;
 let theme;
 
 let divDurationBlock;
@@ -11,15 +10,14 @@ let durationPercent;
 let durationRemaining;
 
 export const updateDurationPlaying = () => {
-    // console.log("updateDuration called " + count++ + " times");
-    console.log(getNumberOfVideo())
+
     if (theme === undefined)
         theme = checkTheme();
 
     let { watchedList, remainingList } = getVideoTimeList();
     let { watchedTs, remainingTs, totalTs, watchedPercent } = calculateTotalTime(watchedList, remainingList);
 
-    if (document.getElementById('duration-block') === null) {
+    if (document.getElementById('duration-block-playing') === null) {
         createUiELement();
         appendUiElement();
     }
@@ -31,14 +29,14 @@ const createUiELement = () => {
     // <div Outer duration block
     divDurationBlock = document.createElement("div");
     divDurationBlock.setAttribute(theme, "");
-    divDurationBlock.id = "duration-block";
+    divDurationBlock.id = "duration-block-playing";
     divDurationBlock.className = "duration-block";
 
     // <div> Progress bar
     divDurationProgress = document.createElement("div");
     divDurationProgress.setAttribute(theme, "");
-    divDurationProgress.id = "duration-progress";
-    divDurationProgress.className = "duration-progress";
+    divDurationProgress.id = "progress-bar-playing";
+    divDurationProgress.className = "progress-bar";
 
     // <div> Inner total block
     divTotalBlock = document.createElement("div");
@@ -49,9 +47,9 @@ const createUiELement = () => {
     // <Span> Total: 
     durationTotal = document.createElement('span');
     durationTotal.setAttribute(theme, "");
-    durationTotal.id = 'duration-total';
+    durationTotal.id = 'duration-total-playing';
     durationTotal.className = 'duration-content';
-    durationTotal.title = "Total playlist duration";
+    durationTotal.title = "Total playlist duration.\nOnly count video shown in the playlist panel.";
 
     // <div> Inner current block
     divCurrentBlock = document.createElement("div");
@@ -62,35 +60,33 @@ const createUiELement = () => {
     durationWatched = document.createElement('span');
     durationWatched.setAttribute(theme, "");
     durationWatched.id = 'duration-watched';
-    durationWatched.className = 'current-content';
+    durationWatched.className = 'played-content';
     durationWatched.title = "Time watched";
 
     // <Span> watched percent
     durationPercent = document.createElement('span');
     durationPercent.setAttribute(theme, "");
     durationPercent.id = 'duration-percent';
-    durationPercent.className = 'current-content';
-    durationPercent.title = "Watched %";
+    durationPercent.className = 'played-content';
+    durationPercent.title = "% of time watched";
 
     // <Span> Remaining time
     durationRemaining = document.createElement('span');
     durationRemaining.setAttribute(theme, "");
     durationRemaining.id = 'duration-remaining';
-    durationRemaining.className = 'current-content';
+    durationRemaining.className = 'played-content';
     durationRemaining.title = "Time remaining";
 }
 
 const appendUiElement = () => {
     // Append duration span to duration header
-    const headerContents = document.querySelector("#page-manager #playlist #header-contents")
+    const headerContents = document.querySelector("#page-manager > ytd-watch-flexy #playlist #header-contents")
     headerContents.appendChild(divDurationBlock);
 
     divDurationBlock.appendChild(divDurationProgress);
     divDurationBlock.appendChild(divTotalBlock);
     divDurationBlock.appendChild(divCurrentBlock);
 
-    divTotalBlock.appendChild(durationTotal);
-    
     divCurrentBlock.appendChild(durationWatched);
     divCurrentBlock.appendChild(durationPercent);
     divCurrentBlock.appendChild(durationRemaining);
@@ -109,7 +105,7 @@ const getNumberOfVideo = () => {
 }
 
 const getVideoTimeList = () => {
-    let videos = document.querySelector("#page-manager #playlist #items").children
+    let videos = document.querySelector("#page-manager > ytd-watch-flexy #playlist #items").children
     let ts = "";
     let isWatched = true;
     let watchedList = [];
