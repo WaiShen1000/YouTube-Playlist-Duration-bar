@@ -170,9 +170,16 @@ const secondsToTs = (seconds) => {
 }
 
 const updateUI = (watchedTs, remainingTs, totalTs, watchedPercent) => {
+    durationTotal = document.getElementById("duration-total-playing");
+    durationWatched = document.getElementById("duration-watched");
+    durationRemaining = document.getElementById("duration-remaining");
+    durationPercent = document.getElementById("duration-percent");
+    divDurationProgress = document.getElementById("progress-bar-playing");
+    
+
     durationTotal.innerHTML = "Total: " + totalTs;
     durationWatched.innerHTML = watchedTs;
-    durationRemaining.innerHTML = remainingTs;
+    durationRemaining.innerHTML = "- " + remainingTs;
     durationPercent.innerHTML = watchedPercent + "%";
     divDurationProgress.style.width = watchedPercent + "%";
 }
