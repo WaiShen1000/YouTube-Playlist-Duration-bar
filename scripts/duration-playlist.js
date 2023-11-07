@@ -57,12 +57,18 @@ const checkTheme = () => {
 }
 
 const getVideoTimeList = () => {
-    let videos = document.querySelector('#page-manager [page-subtype="playlist"] #contents #contents #contents').children
-    let ts = "";
-    let count = '';
-    let fullList = [];
+    let videos_list = document.querySelector('#page-manager [page-subtype="playlist"] #contents #contents #contents');
+    let videos = [];
 
+    if (videos_list != null) {
+        videos = videos_list.children;
+    }
+
+    let count = 0;
+    let fullList = [];
+    
     for (const video of videos) {
+        let ts = "";
         let videoTimeElement = video.querySelector("#text");
 
         if (videoTimeElement == null || videoTimeElement.innerText == '') {
